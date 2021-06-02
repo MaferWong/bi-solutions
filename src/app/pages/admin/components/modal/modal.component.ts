@@ -23,6 +23,7 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userForm.baseForm.reset();
     if(this.data?.user.hasOwnProperty('id')){
       this.actionTODO=Action.EDIT;
       this.data.title='Edit User';

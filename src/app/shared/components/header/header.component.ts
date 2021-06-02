@@ -12,8 +12,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  isAdmin = null;
-  isLogged = false;
+  isUser = null;
+  /*isLogged = true;*/
 
   private destroy$ = new Subject<any>();
 
@@ -25,8 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authSvc.user$
     .pipe(takeUntil(this.destroy$))
     .subscribe((user: UserResponse) => {
-      this.isLogged = true;
-      this.isAdmin = user?.role;
+     /* this.isLogged = false;*/
+      this.isUser = user?.role;
     });
   }
 
