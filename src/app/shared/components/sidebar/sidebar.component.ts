@@ -22,7 +22,6 @@ export class SidebarComponent implements OnInit {
     this.authSvc.user$
     .pipe(takeUntil(this.destroy$))
     .subscribe((user: UserResponse) => {
-     /* this.isLogged = false;*/
       this.isUser = user?.role;
     });
   }
