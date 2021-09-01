@@ -8,12 +8,12 @@
     <span>BI Solutions</span>
 
     <span class="spacer"></span>
-    <a *ngIf="isUser != null; else viewLogin" mat-button (click)="onLogout()">Logout</a>
+    <a *ngIf="isUser != null; else viewLogin" mat-button (click)="onLogout()">Cerrar Sesión</a>
     <!--<a *ngIf="isUser != null; else viewLogout" mat-button routerLink="/login">Login</a>-->
 </mat-toolbar>
 
 <ng-template #viewLogin>
-    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/login">Ingresar Sesión</a>
 </ng-template>
 
 <!--<ng-template #viewLogout>

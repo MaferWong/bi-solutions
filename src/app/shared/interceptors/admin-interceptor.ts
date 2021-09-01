@@ -8,11 +8,11 @@ export class AdminInterceptor implements HttpInterceptor {
 
     }
     intercept(req:HttpRequest<any>, next: HttpHandler): Observable<any> {
-        if(req.url.includes('users')){
+        if(req.url.includes('usuario')){
             const userValue = this.authSvc.userValue;
             const authReq = req.clone({
             setHeaders: {
-                auth: userValue.token,
+                auth: userValue.login_token,
             },
         });
         return next.handle(authReq);

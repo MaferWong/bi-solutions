@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseFormUser } from '@shared/utils/base-form-user';
+import { BaseFormLogin } from '@app/shared/utils/base-form-login';
 import { AuthService } from '@auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -16,13 +16,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor (
     private authSvc: AuthService,
     private router: Router,
-    public loginForm: BaseFormUser
+    public loginForm: BaseFormLogin
     ) { }
 
   ngOnInit(): void {
-    this.loginForm.baseForm.reset();
-    this.loginForm.baseForm.get('role').setValidators(null);
-    this.loginForm.baseForm.get('role').updateValueAndValidity();
+    this.loginForm.baseFormLogin.reset();
+    this.loginForm.baseFormLogin.get('login_usuario_rol').setValidators(null);
+    this.loginForm.baseFormLogin.get('login_usuario_rol').updateValueAndValidity();
   }
 
   ngOnDestroy(): void { 
@@ -30,14 +30,17 @@ export class LoginComponent implements OnInit, OnDestroy {
    }
 
   onLogin(): void {
-    if(this.loginForm.baseForm.invalid) {
+    if(this.loginForm.baseFormLogin.invalid) {
+      console.log('here');
       return;
     }
     
-    const fromValue = this.loginForm.baseForm.value;
+    const fromValue = this.loginForm.baseFormLogin.value;
+    console.log("value:", fromValue);
     this.subscription.add(
     this.authSvc.login(fromValue).subscribe( res => {
       if(res) {
+        console.log(res);
         this.router.navigate(['']);
       }
     })

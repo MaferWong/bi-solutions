@@ -3,7 +3,7 @@ import { CanActivate } from '@angular/router';
 import { AuthService } from '@auth/auth.service';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { UserResponse } from '../models/user.interface';
+import { LoginRespuesta } from '../models/login.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class CheckLoginGuard implements CanActivate {
   canActivate():Observable<boolean> {
     return this.authSvc.user$.pipe(
       take(1),
-      map((user: UserResponse) => (!user ? true : false))
+      map((user: LoginRespuesta) => (!user ? true : false))
     );
   }
 }

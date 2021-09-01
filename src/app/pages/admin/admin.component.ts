@@ -3,7 +3,7 @@ import { UtilsService } from '@app/shared/services/utils.service';
 import { Subject } from 'rxjs';
 import { AuthService } from '@auth/auth.service';
 import { takeUntil } from 'rxjs/operators';
-import { UserResponse } from '@app/shared/models/user.interface';
+import { LoginRespuesta } from '@app/shared/models/login.interface';
 
 @Component({
   selector: 'app-admin',
@@ -21,8 +21,8 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.authSvc.user$
     .pipe(takeUntil(this.destroy$))
-    .subscribe((user: UserResponse) => {
-      this.isUser = user?.role;
+    .subscribe((user: LoginRespuesta) => {
+      this.isUser = user?.login_usuario_rol;
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { UserResponse } from '@app/shared/models/user.interface';
+import { LoginRespuesta } from '@app/shared/models/login.interface';
 import { UtilsService } from '@app/shared/services/utils.service';
 import { AuthService } from '@auth/auth.service';
 import { Subject } from 'rxjs';
@@ -24,9 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authSvc.user$
     .pipe(takeUntil(this.destroy$))
-    .subscribe((user: UserResponse) => {
+    .subscribe((user: LoginRespuesta) => {
      /* this.isLogged = false;*/
-      this.isUser = user?.role;
+      this.isUser = user?.login_usuario_rol;
     });
   }
 

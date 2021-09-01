@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
-import { UserResponse, User } from '@shared/models/user.interface';
+import { LoginRespuesta, LoginSolicitud } from '@app/shared/models/login.interface';
 import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -15,7 +15,7 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
 
-  private user = new BehaviorSubject<UserResponse>(null);
+  private user = new BehaviorSubject<LoginRespuesta>(null);
 
   constructor(private http: HttpClient, private router: Router) { 
     this.checkToken();
@@ -25,16 +25,16 @@ export class AuthService {
     return this.user.asObservable();
   }
 
-  get userValue(): UserResponse {
+  get userValue(): LoginRespuesta {
     return this.user.getValue();
   }
 
-  login(authData: User): Observable<UserResponse | void> {
-    return this.http.post<UserResponse>(
-      `${environment.API_URL}/auth/login`, 
+  login(authData: LoginSolicitud): Observable<LoginRespuesta | void> {
+    return this.http.post<LoginRespuesta>(
+      `${environment.API_URL}/login`, 
       authData
       ).pipe(
-        map((user:UserResponse) => {
+        map((user:LoginRespuesta) => {
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
@@ -63,15 +63,15 @@ export class AuthService {
     }
   } 
 
-  private saveLocalStorage(user:UserResponse): void {
-  const {userId, message, ...rest} = user;
+  private saveLocalStorage(user:LoginRespuesta): void {
+  const {message, ...rest} = user;
   localStorage.setItem('user', JSON.stringify(rest));
   }
 
   private handlerError(err): Observable<never> {
     let errorMessage = 'En error ocurred retrieving data';
     if (err) {
-      errorMessage = `Error: code ${err.message}`;
+      errorMessage = `Error: ${err.message}`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

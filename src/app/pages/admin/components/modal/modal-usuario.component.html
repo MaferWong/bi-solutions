@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+
+<mat-dialog-content>
+<div class="modal-form">
+    <form [formGroup]="userForm.baseFormUsuario">
+        <mat-form-field class="full-width-input">
+            <input 
+            formControlName="usuario_nombre"
+            matInput placeholder="Nombre" required/>
+            <mat-error *ngIf="checkField('usuario_nombre')">
+                {{ userForm.errorMessage }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+            <input 
+            formControlName="usuario_correo"
+            matInput placeholder="Correo" required/>
+            <mat-error *ngIf="checkField('usuario_correo')">
+                {{ userForm.errorMessage }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+            <input 
+            [type]="hide ? 'password' : 'text'"
+            formControlName="usuario_contrasena"
+            matInput placeholder="Contraseña" required/>
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="checkField('usuario_contrasena')">
+                {{ userForm.errorMessage }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+            <mat-label>Rol</mat-label>
+            <mat-select name="rol">
+                <mat-option *ngFor="let rol of tablaRoles" [value]="rol.value">
+                  {{rol.viewValue}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+    </form>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button 
+        mat-button 
+        [mat-dialog-close]="true"
+        color="primary"
+        (click)="onSave()"
+        ckdFocusInitial
+        [disabled]="!userForm.baseFormUsuario.valid"
+    >
+        Guardar
+    </button>
+
+</mat-dialog-actions>

@@ -11,22 +11,23 @@ export class BaseFormUser {
         
     }
 
-    baseForm = this.fb.group({
-        username:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
-        password:['', [Validators.required, Validators.minLength(8)]],
-        role:['', [Validators.required]]
+    baseFormUsuario = this.fb.group({
+        usuario_nombre:['', [Validators.required]],
+        usuario_correo:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
+        usuario_contrasena:['', [Validators.required, Validators.minLength(8)]],
+        usuario_rol_id:['', [Validators.required]]
     });
 
   isValidField(field:string): boolean {
     this.getErrorMessage(field);
     return (
-      (this.baseForm.get(field).touched || this.baseForm.get(field).dirty) 
-    && (!this.baseForm.get(field).valid)
+      (this.baseFormUsuario.get(field).touched || this.baseFormUsuario.get(field).dirty) 
+    && (!this.baseFormUsuario.get(field).valid)
     );
   }
 
   private getErrorMessage(field:string): void {
-   const {errors} = this.baseForm.get(field);
+   const {errors} = this.baseFormUsuario.get(field);
 
    if(errors) {
      const minlength = errors?.minlength?.requiredLength;

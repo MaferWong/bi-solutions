@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { UsersService } from '../services/users.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../components/modal/modal.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { UsuariosService } from '../services/usuarios.service';
+import { ModalUsuarioComponent } from '../components/modal/modal-usuario.component';
 
 @Component({
   selector: 'app-users',
@@ -13,13 +13,13 @@ import { Subject } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'username', 'role', 'actions'];
+  displayedColumns: string[] = ['id', 'nombre', 'correo', 'rol', 'acciones'];
   dataSource = new MatTableDataSource();
 
   private destroy$ = new Subject<any>();
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private userSvc: UsersService, private dialog: MatDialog ) { }
+  constructor(private userSvc: UsuariosService, private dialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.userSvc.getAll().subscribe((users) => {
@@ -32,7 +32,7 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onDelete(userId: number): void {
-    if(window.confirm('Are you sure you want to delete this user?')){
+    if(window.confirm('¿Está seguro de que desea eliminar este usuario?')){
       this.userSvc.delete(userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {window.alert(res.message)
@@ -42,11 +42,11 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onOpenModal(user = {}): void {
     console.log('User->', user);
-    this.dialog.open(ModalComponent, {
+    this.dialog.open(ModalUsuarioComponent, {
       height: '400px',
       width: '600px',
       hasBackdrop: false,
-      data: {title: 'New User', user},
+      data: {title: 'Nuevo Usuario', user},
     });
   }
 

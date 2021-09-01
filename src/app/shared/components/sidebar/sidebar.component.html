@@ -14,13 +14,13 @@
         <span class="nav-link">Revenue Dashboard</span>
     </a>
 
-    <a *ngIf="isUser === 'Admin'" mat-list-item routerLink="/admin/users">
+    <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/users">
         <mat-icon>people_outlined</mat-icon>
-        <span class="nav-link">Users</span>
+        <span class="nav-link">Usuarios</span>
     </a>
 
     <a mat-list-item (click)="onExit()">
         <mat-icon>exit_to_app</mat-icon>
-        <span class="nav-link">Exit</span>
+        <span class="nav-link">Salir</span>
     </a>
 </mat-nav-list>

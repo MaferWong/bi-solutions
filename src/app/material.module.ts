@@ -28,7 +28,7 @@ const myModules = [
     MatDialogModule,
     MatFormFieldModule,
     MatOptionModule,
-    MatSelectModule,
+    MatSelectModule
 ];
 
 @NgModule({
