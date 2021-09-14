@@ -2,7 +2,7 @@
 
 <mat-dialog-content>
 <div class="modal-form">
-    <form [formGroup]="reporteForm.baseFormReporte">
+    <form [formGroup]="reporteForm.baseFormCrearReporte">
         <mat-form-field class="full-width-input">
             <input 
             formControlName="reporte_descripcion"
@@ -20,37 +20,37 @@
             </mat-error>
         </mat-form-field>
         <!-- <mat-form-field class="full-width-input">
-            <mat-radio-group>
-                <mat-radio-button value="true">Activo</mat-radio-button>
-                <mat-radio-button value="false">No Activo</mat-radio-button>
-            </mat-radio-group>
-            <mat-error *ngIf="checkField('reporte_URL')">
+            <input 
+            type="radio"
+            formControlName="reporte_activo"
+            matInput placeholder="Estado"
+            value="true" 
+            required/>
+            <mat-error *ngIf="checkField('reporte_activo')">
                 {{ reporteForm.errorMessage }}
             </mat-error>
         </mat-form-field> -->
-        <!-- <mat-form-field class="full-width-input">
-           <mat-label>Seleccione</mat-label>
-           <mat-select formControlName="role">
-               <mat-option value="IT">IT</mat-option>
-               <mat-option value="Finanzas">Finanzas</mat-option>
-               <mat-option value="Admin">Administrator</mat-option>
-           </mat-select>
-            <mat-error *ngIf="checkField('role')">
-            {{ userForm.errorMessage }}
-            </mat-error>
-        </mat-form-field> -->
+        
+        <mat-radio-group>
+            <label>Estado</label>
+            <label class="radio-inline">
+              <input type="radio" id="reporte_activo" value="true" name="reporte_activo" required>Activo</label>
+            <label class="radio-inline">
+              <input type="radio" id="reporte_activo" value="false" name="reporte_activo" required>No Activo</label>
+        </mat-radio-group>
+           
     </form>
 </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">+
+<mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
     <button 
         mat-button 
         [mat-dialog-close]="true"
         color="primary"
-        (click)="onSave()"
+        (click)="onSaveNuevo()"
         ckdFocusInitial
-        [disabled]="!reporteForm.baseFormReporte.valid"
+        [disabled]="!reporteForm.baseFormCrearReporte.valid"
     >
         Guardar
     </button>

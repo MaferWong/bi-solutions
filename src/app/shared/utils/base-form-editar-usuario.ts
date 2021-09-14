@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({ providedIn: 'root'})
-export class BaseFormUser {
+export class BaseFormEditarUsuario {
 
     private isValidEmail = /\S+@\S+\.\S+/;
     errorMessage = null;
@@ -11,7 +11,8 @@ export class BaseFormUser {
         
     }
 
-    baseFormUsuario = this.fb.group({
+    baseFormEditarUsuario = this.fb.group({
+        usuario_id:[],
         usuario_nombre:['', [Validators.required]],
         usuario_correo:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
         usuario_contrasena:['', [Validators.required, Validators.minLength(8)]],
@@ -21,13 +22,13 @@ export class BaseFormUser {
   isValidField(field:string): boolean {
     this.getErrorMessage(field);
     return (
-      (this.baseFormUsuario.get(field).touched || this.baseFormUsuario.get(field).dirty) 
-    && (!this.baseFormUsuario.get(field).valid)
+      (this.baseFormEditarUsuario.get(field).touched || this.baseFormEditarUsuario.get(field).dirty) 
+    && (!this.baseFormEditarUsuario.get(field).valid)
     );
   }
 
   private getErrorMessage(field:string): void {
-   const {errors} = this.baseFormUsuario.get(field);
+   const {errors} = this.baseFormEditarUsuario.get(field);
 
    if(errors) {
      const minlength = errors?.minlength?.requiredLength;

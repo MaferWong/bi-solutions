@@ -5,7 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UsuariosService } from '../services/usuarios.service';
-import { ModalUsuarioComponent } from '../components/modal/modal-usuario.component';
+import { ModalCrearUsuarioComponent } from '../components/modal/modal-crear-usuario/modal-crear-usuario.component';
+import { ModalEditarUsuarioComponent } from '../components/modal/modal-editar-usuario/modal-editar-usuario.component';
 
 @Component({
   selector: 'app-users',
@@ -19,9 +20,18 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   private destroy$ = new Subject<any>();
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private userSvc: UsuariosService, private dialog: MatDialog ) { }
+  constructor(private userSvc: UsuariosService, private dialog: MatDialog ) { 
+    this.userSvc.listen().subscribe((m:any)=>{
+      console.log(m);
+      this.refreshDataUsuario();
+    })
+  }
 
   ngOnInit(): void {
+    this.refreshDataUsuario();
+  }
+
+  refreshDataUsuario() {
     this.userSvc.getAll().subscribe((users) => {
       this.dataSource.data = users;
     });
@@ -35,18 +45,32 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
     if(window.confirm('¿Está seguro de que desea eliminar este usuario?')){
       this.userSvc.delete(userId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {window.alert(res.message)
+      .subscribe((res) => {
+        this.userSvc.filter('Register click');
+        console.log('Eliminar', res);
+        window.alert(res.message);
       });
+      this.refreshDataUsuario();
     }
   }
 
-  onOpenModal(user = {}): void {
+  onCreateModal(user = {}): void{
     console.log('User->', user);
-    this.dialog.open(ModalUsuarioComponent, {
+    this.dialog.open(ModalCrearUsuarioComponent, {
       height: '400px',
       width: '600px',
       hasBackdrop: false,
       data: {title: 'Nuevo Usuario', user},
+    });
+  }
+
+  onEditModal(user = {}): void {
+    console.log('User->', user);
+    this.dialog.open(ModalEditarUsuarioComponent, {
+      height: '400px',
+      width: '600px',
+      hasBackdrop: false,
+      data: {title: 'Actualizar Usuario', user},
     });
   }
 

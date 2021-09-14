@@ -1,10 +1,14 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { Roles } from '@app/shared/models/rol.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ModalRolComponent } from '../components/modal/modal-rol.component';
+import { ModalCrearRolComponent } from '../components/modal/modal-crear-rol/modal-crear-rol.component';
+import { ModalEditarRolComponent } from '../components/modal/modal-editar-rol/modal-editar-rol.component';
+
+
 import { RolesService } from '../services/roles.service';
 
 @Component({
@@ -20,11 +24,20 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
   private destroy$ = new Subject<any>();
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rolSvc: RolesService, private dialog: MatDialog ) { }
+  constructor(private rolSvc: RolesService, private dialog: MatDialog ) {
+    this.rolSvc.listen().subscribe((m:any)=>{
+      console.log(m);
+      this.refreshDataRol();
+    })
+   }
 
   ngOnInit(): void {
-    this.rolSvc.getAll().subscribe((roles) => {
-      this.dataSource.data = roles;
+    this.refreshDataRol();
+  }
+
+  refreshDataRol() {
+    this.rolSvc.getAll().subscribe((users) => {
+      this.dataSource.data = users;
     });
   }
 
@@ -32,22 +45,36 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
-  onDelete(rolId: number): void {
+  onDelete(rol_id: number): void {
     if(window.confirm('¿Está seguro de que desea eliminar este rol?')){
-      this.rolSvc.delete(rolId)
+      this.rolSvc.delete(rol_id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {window.alert(res.message)
+      .subscribe((res) => {
+        this.rolSvc.filter('Register click');
+        console.log('Eliminar', res);
+        window.alert(res.message);
       });
+      this.refreshDataRol();
     }
   }
 
-  onOpenModal(rol = {}): void {
+  onCreateModal(rol = {}): void{
     console.log('Rol->', rol);
-    this.dialog.open(ModalRolComponent, {
-      height: '400px',
+    this.dialog.open(ModalCrearRolComponent, {
+      height: '300px',
       width: '600px',
       hasBackdrop: false,
       data: {title: 'Nuevo Rol', rol},
+    });
+  }
+
+  onEditModal(rol = {}): void {
+    console.log('Rol->', rol);
+    this.dialog.open(ModalEditarRolComponent, {
+      height: '300px',
+      width: '600px',
+      hasBackdrop: false,
+      data: {title: 'Actualizar Rol', rol},
     });
   }
 

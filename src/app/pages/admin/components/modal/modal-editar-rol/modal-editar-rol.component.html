@@ -2,8 +2,16 @@
 
 <mat-dialog-content>
 <div class="modal-form">
-    <form [formGroup]="rolForm.baseFormRol">
-        <mat-form-field class="full-width-input">
+    <form [formGroup]="rolForm.baseFormEditarRol">
+        <mat-form-field class="invisible">
+            <input
+            formControlName="rol_id"
+            matInput placeholder="Id" required/>
+            <mat-error *ngIf="checkField('rol_id')">
+                {{ rolForm.errorMessage }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input" >
             <input 
             formControlName="rol_descripcion"
             matInput placeholder="Descripcion" required/>
@@ -20,9 +28,9 @@
         mat-button 
         [mat-dialog-close]="true"
         color="primary"
-        (click)="onSave()"
+        (click)="onSaveEditado()"
         ckdFocusInitial
-        [disabled]="!rolForm.baseFormRol.valid"
+        [disabled]="!rolForm.baseFormEditarRol.valid"
     >
         Guardar
     </button>

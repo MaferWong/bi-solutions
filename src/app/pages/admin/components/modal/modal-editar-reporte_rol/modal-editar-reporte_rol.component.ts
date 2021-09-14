@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { BaseFormReporteRol } from "@app/shared/utils/base-form-reporte_rol";
-import { ReporteRolService } from "../../services/reportes_rol.service";
+import { BaseFormEditarReporteRol } from "@app/shared/utils/base-form-editar-reporte_rol";
+import { ReporteRolService } from "../../../services/reportes_rol.service";
 
 enum Action {
-    EDIT='edit',
-    NEW='new'
+    EDIT='edit'
   }
   
   interface TablaRol {
@@ -20,11 +19,11 @@ enum Action {
 
   @Component({
     selector: 'app-modal',
-    templateUrl: './modal-reporte_rol.component.html',
-    styleUrls: ['./modal.component.scss']
+    templateUrl: './modal-editar-reporte_rol.component.html',
+    styleUrls: ['./modal-editar-reporte_rol.component.scss']
   })
-  export class ModalReporteRolComponent implements OnInit {
-    actionTODO = Action.NEW;
+  export class ModalEditarReporteRolComponent implements OnInit {
+    actionTODO = Action.EDIT;
     hide = true;
   
     tablaRol: TablaRol[] = [
@@ -44,32 +43,30 @@ enum Action {
     ];
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-      public reporteRolForm: BaseFormReporteRol,
+      public reporteRolForm: BaseFormEditarReporteRol,
       private reporteRolSvc: ReporteRolService
     ) { }
   
     ngOnInit(): void {
-      this.reporteRolForm.baseFormReporteRol.reset();
+      this.reporteRolForm.baseFormEditarReporteRol.reset();
       if(this.data?.reporte.hasOwnProperty('reporte_rol_id')){
         this.actionTODO=Action.EDIT;
-        this.data.title='Editar Reporte';
         this.pathFormData();
       }
     }
   
-    onSave(): void {
-      const formValue = this.reporteRolForm.baseFormReporteRol.value;
-      if(this.actionTODO === Action.NEW){
-        this.reporteRolSvc.new(formValue).subscribe( res => {
-          console.log('Nuevo', res)
-        })
-      } else{
-        const reporteId = this.data?.reporte?.id;
+    onSaveEditado(): void {
+      const formValue = this.reporteRolForm.baseFormEditarReporteRol.value;
+
+      const reporteId = this.data?.reporte?.reporte_rol_id;
+      console.log(formValue);
+
+      if(this.actionTODO === Action.EDIT){
         this.reporteRolSvc.update(reporteId, formValue).subscribe( res => {
           console.log('Actualizar', res);
-  
+          this.reporteRolSvc.filter('Register click'); 
         })
-      }
+      } 
     }
   
     checkField(field:string): boolean {
@@ -77,7 +74,8 @@ enum Action {
     }
   
     private pathFormData(): void{
-      this.reporteRolForm.baseFormReporteRol.patchValue({
+      this.reporteRolForm.baseFormEditarReporteRol.patchValue({
+        reporte_rol_id: this.data?.reporte?.reporte_rol_id,
         rol_id: this.data?.reporte?.rol_id,
         reporte_id: this.data?.reporte?.reporte_id
       });

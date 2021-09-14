@@ -1,4 +1,5 @@
 export interface Reporte {
+    message: string;
     reporte_id: number;
     reporte_descripcion: string;
     reporte_URL: string;

@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { Injectable } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({ providedIn: 'root'})
-export class BaseFormReporteRol {
+export class BaseFormEditarRol {
 
     errorMessage = null;
     
@@ -10,21 +10,21 @@ export class BaseFormReporteRol {
         
     }
 
-    baseFormReporteRol = this.fb.group({
-        rol_id:['', [Validators.required]],
-        reporte_id:['', [Validators.required]]
+    baseFormEditarRol = this.fb.group({
+        rol_id:[],
+        rol_descripcion:['', [Validators.required]]
     });
 
   isValidField(field:string): boolean {
     this.getErrorMessage(field);
     return (
-      (this.baseFormReporteRol.get(field).touched || this.baseFormReporteRol.get(field).dirty) 
-    && (!this.baseFormReporteRol.get(field).valid)
+      (this.baseFormEditarRol.get(field).touched || this.baseFormEditarRol.get(field).dirty) 
+    && (!this.baseFormEditarRol.get(field).valid)
     );
   }
 
   private getErrorMessage(field:string): void {
-   const {errors} = this.baseFormReporteRol.get(field);
+   const {errors} = this.baseFormEditarRol.get(field);
 
    if(errors) {
      const messages = {

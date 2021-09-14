@@ -1,49 +1,46 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { BaseFormReporte } from "@app/shared/utils/base-form-reporte";
-import { ReportesService } from "../../services/reportes.service";
+import { BaseFormEditarReporte } from "@app/shared/utils/base-form-editar-reporte";
+import { ReportesService } from "../../../services/reportes.service";
 
 enum Action {
-    EDIT='edit',
-    NEW='new'
+    EDIT='edit'
   }
   
   @Component({
     selector: 'app-modal',
-    templateUrl: './modal-reporte.component.html',
-    styleUrls: ['./modal.component.scss']
+    templateUrl: './modal-editar-reporte.component.html',
+    styleUrls: ['./modal-editar-reporte.component.scss']
   })
-  export class ModalReporteComponent implements OnInit {
-    actionTODO = Action.NEW;
+  export class ModalEditarReporteComponent implements OnInit {
+    actionTODO = Action.EDIT;
     hide = true;
   
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-      public reporteForm: BaseFormReporte,
+      public reporteForm: BaseFormEditarReporte,
       private reporteSvc: ReportesService
     ) { }
   
     ngOnInit(): void {
-      this.reporteForm.baseFormReporte.reset();
+      this.reporteForm.baseFormEditarReporte.reset();
+
       if(this.data?.reporte.hasOwnProperty('reporte_id')){
         this.actionTODO=Action.EDIT;
-        this.data.title='Editar Reporte';
         this.pathFormData();
       }
     }
   
-    onSave(): void {
-      const formValue = this.reporteForm.baseFormReporte.value;
-      if(this.actionTODO === Action.NEW){
-        this.reporteSvc.new(formValue).subscribe( res => {
-          console.log('Nuevo', res)
-        })
-      } else{
-        const reporteId = this.data?.reporte?.id;
+    onSaveEditado(): void {
+      const formValue = this.reporteForm.baseFormEditarReporte.value;
+
+      const reporteId = this.data?.reporte?.reporte_id;
+
+      if(this.actionTODO === Action.EDIT){
         this.reporteSvc.update(reporteId, formValue).subscribe( res => {
           console.log('Actualizar', res);
-  
+          this.reporteSvc.filter('Register click');  
         })
-      }
+      }  
     }
   
     checkField(field:string): boolean {
@@ -51,7 +48,8 @@ enum Action {
     }
   
     private pathFormData(): void{
-      this.reporteForm.baseFormReporte.patchValue({
+      this.reporteForm.baseFormEditarReporte.patchValue({
+        reporte_id: this.data?.reporte?.reporte_id,
         reporte_descripcion: this.data?.reporte?.reporte_descripcion,
         reporte_URL: this.data?.reporte?.reporte_URL,
         reporte_activo: this.data?.reporte?.reporte_activo

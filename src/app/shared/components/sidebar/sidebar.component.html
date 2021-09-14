@@ -1,26 +1,44 @@
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" 
+rel="stylesheet">
+
 <mat-nav-list>
     <a mat-list-item routerLink="/">
-        <mat-icon>home</mat-icon>
+        <i class="material-icons-outlined">home</i>
         <span class="nav-link">Home</span>
     </a>
 
-    <a mat-list-item routerLink="/admin">
-        <mat-icon>insert_chart_outlined</mat-icon>
+    <a *ngIf="isUser === 'Admin' || isUser === 'Finanzas'" mat-list-item routerLink="/admin">
+        <i class="material-icons-outlined">insert_chart</i>
         <span class="nav-link">Expense Dashboard</span>
     </a>
 
-    <a *ngIf="isUser === 'Admin' || isUser === 'Finanzas'" mat-list-item routerLink="/">
-        <mat-icon>insert_chart_outlined</mat-icon>
+    <a *ngIf="isUser === 'Admin' || isUser === 'Finanzas'" mat-list-item routerLink="/admin">
+        <i class="material-icons-outlined">insert_chart</i>
         <span class="nav-link">Revenue Dashboard</span>
     </a>
 
     <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/users">
-        <mat-icon>people_outlined</mat-icon>
+        <i class="material-icons-outlined">people</i>
         <span class="nav-link">Usuarios</span>
     </a>
 
+    <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/reportes">
+        <i class="material-icons-outlined">add_chart</i>
+        <span class="nav-link">Reportes</span>
+    </a>
+
+    <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/reportes-rol">
+        <i class="material-icons-outlined">domain_verification</i>
+        <span class="nav-link">Asignaciones</span>
+    </a>
+
+    <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/roles">
+        <i class="material-icons-outlined">account_tree</i>
+        <span class="nav-link">Roles</span>
+    </a>
+
     <a mat-list-item (click)="onExit()">
-        <mat-icon>exit_to_app</mat-icon>
+        <i class="material-icons-outlined">exit_to_app</i>
         <span class="nav-link">Salir</span>
     </a>
 </mat-nav-list>

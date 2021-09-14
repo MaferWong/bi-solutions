@@ -1,6 +1,6 @@
 <div class="table-button-row">
     <button 
-      (click)="onOpenModal()"
+      (click)="onCreateModal()"
       mat-flat-button color="primary" class="btn-new">
       Nuevo Rol
     </button>
@@ -24,7 +24,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Opciones </th>
         <td mat-cell *matCellDef="let element">
           <div class="table-button-row">
-            <button mat-flat-button color="accent" (click)="onOpenModal(element)">
+            <button mat-flat-button color="accent" (click)="onEditModal(element)">
               Editar
             </button>
             <button mat-flat-button color="warn" (click)="onDelete(element.rol_id)">

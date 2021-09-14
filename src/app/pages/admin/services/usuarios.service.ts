@@ -5,6 +5,8 @@ import { environment } from '@env/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { Subject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,5 +47,15 @@ export class UsuariosService {
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
+  }
+
+  private _listeners = new Subject<any>();
+
+  listen(): Observable<any>{
+    return this._listeners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listeners.next(filterBy);
   }
 }

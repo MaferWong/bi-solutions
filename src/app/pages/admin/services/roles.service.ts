@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Roles } from "@app/shared/models/rol.interface";
 import { environment } from "@env/environment";
-import { Observable, throwError } from "rxjs";
+import { Observable, Subject, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 @Injectable({
@@ -45,5 +45,15 @@ import { catchError } from "rxjs/operators";
       }
       window.alert(errorMessage);
       return throwError(errorMessage);
+    }
+
+    private _listeners = new Subject<any>();
+
+    listen(): Observable<any>{
+    return this._listeners.asObservable();
+    }
+
+    filter(filterBy: string){
+    this._listeners.next(filterBy);
     }
   }
