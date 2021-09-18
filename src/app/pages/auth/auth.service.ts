@@ -16,6 +16,8 @@ const helper = new JwtHelperService();
 export class AuthService {
 
   private user = new BehaviorSubject<LoginRespuesta>(null);
+  isAdmin= false;
+  isUser = null;
 
   constructor(private http: HttpClient, private router: Router) { 
     this.checkToken();
@@ -36,6 +38,10 @@ export class AuthService {
       ).pipe(
         map((user:LoginRespuesta) => {
           this.saveLocalStorage(user);
+          this.isUser = user?.login_usuario_rol;
+          if(this.isUser == "Administrador de Sistema"){
+              this.isAdmin=true;
+          }
           this.user.next(user);
           return user;
         }),

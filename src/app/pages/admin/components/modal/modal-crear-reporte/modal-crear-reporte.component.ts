@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { BaseFormCrearReporte } from "@app/shared/utils/base-form-crear-reporte";
 
@@ -19,8 +20,8 @@ enum Action {
   
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public reporteForm: BaseFormCrearReporte,
-      private reporteSvc: ReportesService
-    ) { }
+      private reporteSvc: ReportesService) 
+    { }
   
     ngOnInit(): void {
       this.reporteForm.baseFormCrearReporte.reset();

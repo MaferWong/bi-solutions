@@ -19,26 +19,16 @@
                 {{ reporteForm.errorMessage }}
             </mat-error>
         </mat-form-field>
-        <!-- <mat-form-field class="full-width-input">
-            <input 
-            type="radio"
-            formControlName="reporte_activo"
-            matInput placeholder="Estado"
-            value="true" 
-            required/>
+        <mat-form-field class="full-width-input">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="reporte_activo" required>
+              <mat-option value="Activo">Activo</mat-option>
+              <mat-option value="No Activo">No Activo</mat-option>
+            </mat-select>
             <mat-error *ngIf="checkField('reporte_activo')">
                 {{ reporteForm.errorMessage }}
             </mat-error>
-        </mat-form-field> -->
-        
-        <mat-radio-group>
-            <label>Estado</label>
-            <label class="radio-inline">
-              <input type="radio" id="reporte_activo" value="true" name="reporte_activo" required>Activo</label>
-            <label class="radio-inline">
-              <input type="radio" id="reporte_activo" value="false" name="reporte_activo" required>No Activo</label>
-        </mat-radio-group>
-           
+        </mat-form-field>
     </form>
 </div>
 </mat-dialog-content>

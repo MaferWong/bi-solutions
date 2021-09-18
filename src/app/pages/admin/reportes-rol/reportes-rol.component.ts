@@ -15,7 +15,7 @@ import { ReporteRolService } from '../services/reportes_rol.service';
 })
 
 export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'rol_id', 'reporte_id', 'acciones'];
+  displayedColumns: string[];
   dataSource = new MatTableDataSource();
 
   private destroy$ = new Subject<any>();
@@ -33,6 +33,7 @@ export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   refreshDataReporteRol() {
+    this.displayedColumns = ['id', 'rol_id', 'rol_descripcion', 'reporte_id', 'reporte_descripcion', 'acciones'];
     this.reporteRolSvc.getAll().subscribe((reportesRol) => {
       this.dataSource.data = reportesRol;
     });

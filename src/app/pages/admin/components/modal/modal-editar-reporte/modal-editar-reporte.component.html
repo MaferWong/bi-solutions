@@ -28,10 +28,11 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-            <mat-radio-group>
-                <mat-radio-button value="1">Activo</mat-radio-button>
-                <mat-radio-button value="0">No Activo</mat-radio-button>
-            </mat-radio-group>
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="reporte_activo" required>
+              <mat-option value="Activo">Activo</mat-option>
+              <mat-option value="No Activo">No Activo</mat-option>
+            </mat-select>
             <mat-error *ngIf="checkField('reporte_activo')">
                 {{ reporteForm.errorMessage }}
             </mat-error>

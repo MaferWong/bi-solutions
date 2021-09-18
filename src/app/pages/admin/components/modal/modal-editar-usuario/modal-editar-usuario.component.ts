@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RolesService } from '@app/pages/admin/services/roles.service';
 import { BaseFormEditarUsuario } from '@app/shared/utils/base-form-editar-usuario';
 import { UsuariosService } from '../../../services/usuarios.service';
 
@@ -21,6 +23,7 @@ interface TablaRoles {
 export class ModalEditarUsuarioComponent implements OnInit {
   actionTODO = Action.EDIT;
   hide = true;
+  //rol_descripcion: string;
 
   tablaRoles: TablaRoles[] = [
     {value: 1, viewValue: 1},
@@ -35,11 +38,16 @@ export class ModalEditarUsuarioComponent implements OnInit {
     private userSvc: UsuariosService
   ) { }
 
+  FormRol = new FormGroup({
+  rol_descripcion: new FormControl()
+ });
+
   ngOnInit(): void {
     this.userForm.baseFormEditarUsuario.reset();
       if(this.data?.user.hasOwnProperty('usuario_id')){
         this.actionTODO=Action.EDIT;
         this.pathFormData();
+        this.aditionalData();
       }
   }
 
@@ -70,4 +78,9 @@ export class ModalEditarUsuarioComponent implements OnInit {
       usuario_rol_id: this.data?.user?.usuario_rol_id
     });
   }
+  
+  private aditionalData(): void {
+    this.FormRol.setValue({rol_descripcion: this.data?.user?.rol.rol_descripcion});
+  }
+
 }

@@ -7,4 +7,5 @@ export interface Usuario {
     usuario_correo: string;
     usuario_contrasena: string;
     usuario_rol_id: Roles;
+    usuario_rol_descripcion: string;
 }

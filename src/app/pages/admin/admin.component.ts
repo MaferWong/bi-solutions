@@ -13,7 +13,8 @@ import { LoginRespuesta } from '@app/shared/models/login.interface';
 export class AdminComponent implements OnInit {
 
   isUser = null;
-  
+  isAdmin = false;
+
   private destroy$ = new Subject<any>();
 
   constructor(private authSvc: AuthService, private utilsSvc: UtilsService) { }

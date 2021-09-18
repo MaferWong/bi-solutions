@@ -13,7 +13,7 @@ export class BaseFormCrearReporte {
     baseFormCrearReporte = this.fb.group({
         reporte_descripcion:['', [Validators.required]],
         reporte_URL:['', [Validators.required]],
-        reporte_activo:[[Validators.required]]
+        reporte_activo:['', [Validators.required]]
     });
 
   isValidField(field:string): boolean {

@@ -14,7 +14,7 @@ import { ModalEditarUsuarioComponent } from '../components/modal/modal-editar-us
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'nombre', 'correo', 'rol', 'acciones'];
+  displayedColumns: string[];
   dataSource = new MatTableDataSource();
 
   private destroy$ = new Subject<any>();
@@ -32,6 +32,7 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   refreshDataUsuario() {
+    this.displayedColumns = ['id', 'nombre', 'correo', 'rol', 'rol_descripcion', 'acciones'];
     this.userSvc.getAll().subscribe((users) => {
       this.dataSource.data = users;
     });
