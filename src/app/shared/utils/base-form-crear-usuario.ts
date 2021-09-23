@@ -15,10 +15,10 @@ export class BaseFormCrearUsuario {
         usuario_nombre:['', [Validators.required]],
         usuario_correo:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
         usuario_contrasena:['', [Validators.required, Validators.minLength(8)]],
-        usuario_rol_id:['',[Validators.required]]
+        usuario_rol_id:[[Validators.required]]
     });
 
-  isValidField(field:string): boolean {
+  isValidField(field:any): boolean {
     this.getErrorMessage(field);
     return (
       (this.baseFormCrearUsuario.get(field).touched || this.baseFormCrearUsuario.get(field).dirty) 
@@ -26,7 +26,7 @@ export class BaseFormCrearUsuario {
     );
   }
 
-  private getErrorMessage(field:string): void {
+  private getErrorMessage(field:any): void {
    const {errors} = this.baseFormCrearUsuario.get(field);
 
    if(errors) {

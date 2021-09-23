@@ -1,20 +1,14 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { ReportesService } from "@app/pages/admin/services/reportes.service";
+import { RolesService } from "@app/pages/admin/services/roles.service";
+import { Reporte } from "@app/shared/models/reporte.interface";
+import { Roles } from "@app/shared/models/rol.interface";
 import { BaseFormEditarReporteRol } from "@app/shared/utils/base-form-editar-reporte_rol";
 import { ReporteRolService } from "../../../services/reportes_rol.service";
 
 enum Action {
     EDIT='edit'
-  }
-  
-  interface TablaRol {
-    value: number;
-    viewValue: number;
-  }
-
-  interface TablaReporte {
-    value: number;
-    viewValue: number;
   }
 
   @Component({
@@ -25,59 +19,49 @@ enum Action {
   export class ModalEditarReporteRolComponent implements OnInit {
     actionTODO = Action.EDIT;
     hide = true;
+    allRoles: Array<Roles>;
+    allReportes: Array<Reporte>;
   
-    tablaRol: TablaRol[] = [
-      {value: 1, viewValue: 1},
-      {value: 2, viewValue: 2},
-      {value: 3, viewValue: 3},
-      {value: 4, viewValue: 4},
-      {value: 5, viewValue: 5},
-    ];
-
-    tablaReporte: TablaReporte[] = [
-      {value: 1, viewValue: 1},
-      {value: 2, viewValue: 2},
-      {value: 3, viewValue: 3},
-      {value: 4, viewValue: 4},
-      {value: 5, viewValue: 5},
-    ];
-
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public reporteRolForm: BaseFormEditarReporteRol,
-      private reporteRolSvc: ReporteRolService
+      private reporteRolSvc: ReporteRolService,
+      private rolSvc: RolesService,
+      private reporteSvc: ReportesService
     ) { }
   
     ngOnInit(): void {
       this.reporteRolForm.baseFormEditarReporteRol.reset();
-      if(this.data?.reporte.hasOwnProperty('reporte_rol_id')){
+      if(this.data?.reportesRol.hasOwnProperty('reporte_rol_id')){
         this.actionTODO=Action.EDIT;
         this.pathFormData();
+        this.rolSvc.getAll().subscribe(data => this.allRoles = data);
+        this.reporteSvc.getAll().subscribe(data => this.allReportes = data);
       }
     }
   
     onSaveEditado(): void {
       const formValue = this.reporteRolForm.baseFormEditarReporteRol.value;
 
-      const reporteId = this.data?.reporte?.reporte_rol_id;
+      const reporteRolId = this.data?.reportesRol?.reporte_rol_id;
       console.log(formValue);
 
       if(this.actionTODO === Action.EDIT){
-        this.reporteRolSvc.update(reporteId, formValue).subscribe( res => {
+        this.reporteRolSvc.update(reporteRolId, formValue).subscribe( res => {
           console.log('Actualizar', res);
           this.reporteRolSvc.filter('Register click'); 
         })
       } 
     }
   
-    checkField(field:string): boolean {
+    checkField(field:any): boolean {
      return this.reporteRolForm.isValidField(field);
     }
   
     private pathFormData(): void{
       this.reporteRolForm.baseFormEditarReporteRol.patchValue({
-        reporte_rol_id: this.data?.reporte?.reporte_rol_id,
-        rol_id: this.data?.reporte?.rol_id,
-        reporte_id: this.data?.reporte?.reporte_id
+        reporte_rol_id: this.data?.reportesRol?.reporte_rol_id,
+        rol_id: this.data?.reportesRol?.rol_id,
+        reporte_id: this.data?.reportesRol?.reporte_id
       });
     }
   }

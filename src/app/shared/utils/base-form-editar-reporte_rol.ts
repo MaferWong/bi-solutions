@@ -12,11 +12,11 @@ export class BaseFormEditarReporteRol {
 
     baseFormEditarReporteRol = this.fb.group({
         reporte_rol_id:[],
-        rol_id:['', [Validators.required]],
-        reporte_id:['', [Validators.required]]
+        rol_id:[[Validators.required]],
+        reporte_id:[[Validators.required]]
     });
 
-  isValidField(field:string): boolean {
+  isValidField(field:any): boolean {
     this.getErrorMessage(field);
     return (
       (this.baseFormEditarReporteRol.get(field).touched || this.baseFormEditarReporteRol.get(field).dirty) 
@@ -24,7 +24,7 @@ export class BaseFormEditarReporteRol {
     );
   }
 
-  private getErrorMessage(field:string): void {
+  private getErrorMessage(field:any): void {
    const {errors} = this.baseFormEditarReporteRol.get(field);
 
    if(errors) {

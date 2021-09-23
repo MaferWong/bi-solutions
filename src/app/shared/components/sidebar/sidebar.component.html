@@ -4,17 +4,12 @@ rel="stylesheet">
 <mat-nav-list>
     <a mat-list-item routerLink="/home">
         <i class="material-icons-outlined">home</i>
-        <span class="nav-link">Home</span>
+        <span class="nav-link">Inicio</span>
     </a>
 
-    <a *ngIf="isUser === 'Admin' || isUser === 'Finanzas'" mat-list-item routerLink="/admin">
+    <a *ngIf="isUser != null" mat-list-item routerLink="/admin">
         <i class="material-icons-outlined">insert_chart</i>
-        <span class="nav-link">Expense Dashboard</span>
-    </a>
-
-    <a *ngIf="isUser === 'Admin' || isUser === 'Finanzas'" mat-list-item routerLink="/admin">
-        <i class="material-icons-outlined">insert_chart</i>
-        <span class="nav-link">Revenue Dashboard</span>
+        <span class="nav-link">Reportes</span>
     </a>
 
     <a *ngIf="isUser === 'Administrador de Sistema'" mat-list-item routerLink="/admin/users">

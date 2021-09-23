@@ -41,24 +41,16 @@
         </mat-form-field>
         <mat-form-field class="full-width-input">
             <mat-label>Rol</mat-label>
-            <mat-select name="rol">
-                <mat-option *ngFor="let rol of tablaRoles" [value]="rol.value">
-                  {{rol.viewValue}}
-                </mat-option>
+            <mat-select formControlName="usuario_rol_id" required>
+                <ng-container *ngFor="let rol of allRoles">
+                    <mat-option [value]="rol.rol_id">{{rol.rol_descripcion}}</mat-option>
+                </ng-container>
               </mat-select>
               <mat-error *ngIf="checkField('usuario_rol_id')">
                 {{ userForm.errorMessage }}
             </mat-error>
         </mat-form-field>
     </form>
-    <!-- <form [FormGroup]="FormRol">
-        <mat-form-field class="full-width-input">
-        <input 
-        formControlName="rol_descripcion"
-        matInput placeholder="Descripcion Rol"/>
-        </mat-form-field>
-    </form> -->
-    
 </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

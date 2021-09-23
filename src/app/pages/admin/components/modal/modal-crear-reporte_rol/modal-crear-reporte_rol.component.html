@@ -5,19 +5,25 @@
     <form [formGroup]="reporteRolForm.baseFormCrearReporteRol">
         <mat-form-field class="full-width-input">
             <mat-label>Rol</mat-label>
-            <mat-select name="rol">
-                <mat-option *ngFor="let rol of tablaRol" [value]="rol.value">
-                  {{rol.viewValue}}
-                </mat-option>
+            <mat-select formControlName="rol_id" required>
+                <ng-container *ngFor="let rol of allRoles">
+                    <mat-option [value]="rol.rol_id">{{rol.rol_descripcion}}</mat-option>
+                </ng-container>
               </mat-select>
+              <mat-error *ngIf="checkField('rol_id')">
+                {{ reporteRolForm.errorMessage }}
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-            <mat-label>Rol</mat-label>
-            <mat-select name="reporte">
-                <mat-option *ngFor="let reporte of tablaReporte" [value]="reporte.value">
-                  {{reporte.viewValue}}
-                </mat-option>
+            <mat-label>Reporte</mat-label>
+            <mat-select formControlName="reporte_id" required>
+                <ng-container *ngFor="let reporte of allReportes">
+                    <mat-option [value]="reporte.reporte_id">{{reporte.reporte_descripcion}}</mat-option>
+                </ng-container>
               </mat-select>
+              <mat-error *ngIf="checkField('reporte_id')">
+                {{ reporteRolForm.errorMessage }}
+            </mat-error>
         </mat-form-field>
     </form>
 </div>

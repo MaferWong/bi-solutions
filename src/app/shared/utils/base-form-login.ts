@@ -14,7 +14,8 @@ export class BaseFormLogin {
     baseFormLogin = this.fb.group({
         login_correo:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
         login_contrasena:['', [Validators.required, Validators.minLength(8)]],
-        login_usuario_rol:['', [Validators.required]]
+        login_usuario_rol:['', [Validators.required]],
+        login_usuario_rol_id:[]
     });
 
   isValidField(field:string): boolean {

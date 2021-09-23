@@ -16,10 +16,10 @@ export class BaseFormEditarUsuario {
         usuario_nombre:['', [Validators.required]],
         usuario_correo:['', [Validators.required, Validators.pattern(this.isValidEmail)]],
         usuario_contrasena:['', [Validators.required, Validators.minLength(8)]],
-        usuario_rol_id:['', [Validators.required]]
+        usuario_rol_id:[[Validators.required]]
     });
 
-  isValidField(field:string): boolean {
+  isValidField(field:any): boolean {
     this.getErrorMessage(field);
     return (
       (this.baseFormEditarUsuario.get(field).touched || this.baseFormEditarUsuario.get(field).dirty) 
@@ -27,7 +27,7 @@ export class BaseFormEditarUsuario {
     );
   }
 
-  private getErrorMessage(field:string): void {
+  private getErrorMessage(field:any): void {
    const {errors} = this.baseFormEditarUsuario.get(field);
 
    if(errors) {

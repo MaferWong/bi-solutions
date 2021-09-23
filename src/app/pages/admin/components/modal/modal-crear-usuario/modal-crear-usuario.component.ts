@@ -1,15 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RolesService } from '@app/pages/admin/services/roles.service';
+import { Roles } from '@app/shared/models/rol.interface';
 import { BaseFormCrearUsuario } from '@app/shared/utils/base-form-crear-usuario';
 import { UsuariosService } from '../../../services/usuarios.service';
 
 enum Action {
   NEW='new'
-}
-
-interface TablaRoles {
-  value: number;
-  viewValue: number;
 }
 
 @Component({
@@ -21,22 +18,17 @@ interface TablaRoles {
 export class ModalCrearUsuarioComponent implements OnInit {
   actionTODO = Action.NEW;
   hide = true;
-
-  tablaRoles: TablaRoles[] = [
-    {value: 1, viewValue: 1},
-    {value: 2, viewValue: 2},
-    {value: 3, viewValue: 3},
-    {value: 4, viewValue: 4},
-    {value: 5, viewValue: 5},
-  ];
+  allRoles: Array<Roles>;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public userForm: BaseFormCrearUsuario,
-    private userSvc: UsuariosService
+    private userSvc: UsuariosService,
+    private rolSvc: RolesService
   ) { }
 
   ngOnInit(): void {
     this.userForm.baseFormCrearUsuario.reset();
+    this.rolSvc.getAll().subscribe(data => this.allRoles = data);
   }
 
   onSaveNuevo(): void {
@@ -51,7 +43,7 @@ export class ModalCrearUsuarioComponent implements OnInit {
     } 
   }
 
-  checkField(field:string): boolean {
+  checkField(field:any): boolean {
    return this.userForm.isValidField(field);
   }
 }

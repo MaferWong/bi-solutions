@@ -1,20 +1,14 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { ReportesService } from "@app/pages/admin/services/reportes.service";
+import { RolesService } from "@app/pages/admin/services/roles.service";
+import { Reporte } from "@app/shared/models/reporte.interface";
+import { Roles } from "@app/shared/models/rol.interface";
 import { BaseFormCrearReporteRol } from "@app/shared/utils/base-form-crear-reporte_rol";
 import { ReporteRolService } from "../../../services/reportes_rol.service";
 
 enum Action {
     NEW='new'
-  }
-  
-  interface TablaRol {
-    value: number;
-    viewValue: number;
-  }
-
-  interface TablaReporte {
-    value: number;
-    viewValue: number;
   }
 
   @Component({
@@ -25,30 +19,20 @@ enum Action {
   export class ModalCrearReporteRolComponent implements OnInit {
     actionTODO = Action.NEW;
     hide = true;
-  
-    tablaRol: TablaRol[] = [
-      {value: 1, viewValue: 1},
-      {value: 2, viewValue: 2},
-      {value: 3, viewValue: 3},
-      {value: 4, viewValue: 4},
-      {value: 5, viewValue: 5},
-    ];
-
-    tablaReporte: TablaReporte[] = [
-      {value: 1, viewValue: 1},
-      {value: 2, viewValue: 2},
-      {value: 3, viewValue: 3},
-      {value: 4, viewValue: 4},
-      {value: 5, viewValue: 5},
-    ];
+    allRoles: Array<Roles>;
+    allReportes: Array<Reporte>;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public reporteRolForm: BaseFormCrearReporteRol,
-      private reporteRolSvc: ReporteRolService
+      private reporteRolSvc: ReporteRolService,
+      private rolSvc: RolesService,
+      private reporteSvc: ReportesService
     ) { }
   
     ngOnInit(): void {
       this.reporteRolForm.baseFormCrearReporteRol.reset();
+      this.rolSvc.getAll().subscribe(data => this.allRoles = data);
+      this.reporteSvc.getAll().subscribe(data => this.allReportes = data);
     }
   
     onSaveNuevo(): void {
@@ -63,7 +47,7 @@ enum Action {
       }
     }
   
-    checkField(field:string): boolean {
+    checkField(field:any): boolean {
      return this.reporteRolForm.isValidField(field);
     }
   }

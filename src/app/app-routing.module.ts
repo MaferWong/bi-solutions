@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckLoginGuard } from '@shared/guards/check-login.guard';
-import { CheckAdminGuard } from './shared/guards/check-admin.guard';
 
 const routes: Routes = [
   {
@@ -16,8 +15,7 @@ const routes: Routes = [
   { 
     path: 'home',
     loadChildren: () => 
-    import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivateChild: [CheckAdminGuard]  
+    import('./pages/home/home.module').then(m => m.HomeModule)
   }, 
   { 
     path: 'notfound',

@@ -10,4 +10,5 @@ export interface LoginRespuesta {
     login_correo: string;
     login_token: string;
     login_usuario_rol: Roles;
+    login_usuario_rol_id: Roles;
 }
