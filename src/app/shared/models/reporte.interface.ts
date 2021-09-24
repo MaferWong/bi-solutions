@@ -1,4 +1,4 @@
-export interface Reporte {
+export class Reporte {
     message: string;
     reporte_id: number;
     reporte_descripcion: string;

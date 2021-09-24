@@ -1,23 +1,21 @@
-<div class="full-width-input">
-    <mat-label>Reportes</mat-label>
-    <mat-select id="reporte_id">
-        <ng-container *ngFor="let reportes of reportesByRolId">
-            <mat-option [value]="reportes.reporte.reporte_id">{{reportes.reporte.reporte_descripcion}}</mat-option>
-        </ng-container>
+<div class="select-box">
+    
+    <mat-select id="reporte_id" class="btn-select" placeholder="Seleccionar Reporte" [(ngModel)]="selectedValue">
+       
+            <mat-option *ngFor="let reporteRol of reportesByRolId" [value]="reporteRol.reporte.reporte_URL">
+                {{reporteRol.reporte.reporte_descripcion}}
+            </mat-option>
     </mat-select>
+    <button mat-flat-button color="primary" class="btn-cargar" (click)="getValue()">Ver Reporte</button>
+    <mat-divider></mat-divider>
+    <div class="div-size">
+       <iframe *ngIf="selectedValue"
+        width="100%" 
+        height="100%" 
+        [src]="safeSrc"
+        frameborder="0" allowFullScreen="true">
+    </iframe> 
+    </div>
 </div>
-<div>
-    <section *ngIf="isUser === 'Administrador de Sistema' || isUser === ',,Finanzas'">
-        <iframe 
-        width= 100% 
-        height="900" 
-        src="https://app.powerbi.com/reportEmbed?reportId=28e60dbb-f6b7-44f7-9345-627f452f4291&autoAuth=true&ctid=df178cd5-c418-42f2-becc-9a19dd282438&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWNlbnRyYWwtdXMtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D" 
-        frameborder="0" 
-        allowFullScreen="true">
-        </iframe>
-    </section>
-    <section *ngIf="isUser === 'IT'"> 
-        <p>Aquí irá Reporte Gastos IT</p>
-    </section>
-</div>
+
 

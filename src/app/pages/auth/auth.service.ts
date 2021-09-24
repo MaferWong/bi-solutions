@@ -77,7 +77,8 @@ export class AuthService {
   private handlerError(err): Observable<never> {
     let errorMessage = 'En error ocurred retrieving data';
     if (err) {
-      errorMessage = `Error: ${err.message}`;
+      //errorMessage = `Error: ${err.message}`;
+      errorMessage = 'Verifique sus credenciales.';
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

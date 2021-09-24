@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +10,6 @@ import { FooterComponent } from '@shared/components/footer/footer.component';
 import {MaterialModule} from '@app/material.module';
 import { SidebarModule } from '@shared/components/sidebar/sidebar.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AdminInterceptor } from '@shared/interceptors/admin-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -26,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule, 
     SidebarModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true}
