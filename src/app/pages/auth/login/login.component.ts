@@ -31,16 +31,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onLogin(): void {
     if(this.loginForm.baseFormLogin.invalid) {
-      console.log('here');
       return;
     }
     
     const fromValue = this.loginForm.baseFormLogin.value;
-    console.log("value:", fromValue);
     this.subscription.add(
     this.authSvc.login(fromValue).subscribe( res => {
       if(res) {
-        console.log(res);
         this.router.navigate(['home']);
       }
     })
