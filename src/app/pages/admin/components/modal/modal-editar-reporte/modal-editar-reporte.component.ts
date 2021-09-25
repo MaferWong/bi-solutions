@@ -37,7 +37,6 @@ enum Action {
 
       if(this.actionTODO === Action.EDIT){
         this.reporteSvc.update(reporteId, formValue).subscribe( res => {
-          console.log('Actualizar', res);
           this.reporteSvc.filter('Register click');  
         })
       }  

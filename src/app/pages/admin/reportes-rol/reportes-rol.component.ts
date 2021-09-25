@@ -23,7 +23,6 @@ export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   constructor(private reporteRolSvc: ReporteRolService, private dialog: MatDialog ) {
     this.reporteRolSvc.listen().subscribe((m:any)=>{
-      console.log(m);
       this.refreshDataReporteRol();
     })
    }
@@ -49,7 +48,6 @@ export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.reporteRolSvc.filter('Register click');
-        console.log('Eliminar', res);
         window.alert(res.message);
       });
       this.refreshDataReporteRol();
@@ -57,7 +55,6 @@ export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onCreateModal(reportesRol = {}): void {
-    console.log('ReporteRol->', reportesRol);
     this.dialog.open(ModalCrearReporteRolComponent, {
       height: '400px',
       width: '600px',
@@ -67,7 +64,6 @@ export class ReportesRolComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onEditModal(reportesRol = {}): void {
-    console.log('ReporteRol->', reportesRol);
     this.dialog.open(ModalEditarReporteRolComponent, {
       height: '400px',
       width: '600px',

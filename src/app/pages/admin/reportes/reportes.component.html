@@ -7,6 +7,10 @@
   </div>
   
   <mat-divider></mat-divider>
+
+  <mat-form-field class="btn-buscar">
+    <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filtrar Reportes">
+  </mat-form-field>
   
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   

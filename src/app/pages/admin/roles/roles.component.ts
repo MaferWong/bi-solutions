@@ -26,7 +26,6 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   constructor(private rolSvc: RolesService, private dialog: MatDialog ) {
     this.rolSvc.listen().subscribe((m:any)=>{
-      console.log(m);
       this.refreshDataRol();
     })
    }
@@ -45,13 +44,16 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   onDelete(rol_id: number): void {
     if(window.confirm('¿Está seguro de que desea eliminar este rol?')){
       this.rolSvc.delete(rol_id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.rolSvc.filter('Register click');
-        console.log('Eliminar', res);
         window.alert(res.message);
       });
       this.refreshDataRol();
@@ -59,7 +61,6 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onCreateModal(rol = {}): void{
-    console.log('Rol->', rol);
     this.dialog.open(ModalCrearRolComponent, {
       height: '300px',
       width: '600px',
@@ -69,7 +70,6 @@ export class RolesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onEditModal(rol = {}): void {
-    console.log('Rol->', rol);
     this.dialog.open(ModalEditarRolComponent, {
       height: '300px',
       width: '600px',

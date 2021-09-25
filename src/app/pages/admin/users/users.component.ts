@@ -22,7 +22,6 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   constructor(private userSvc: UsuariosService, private dialog: MatDialog ) { 
     this.userSvc.listen().subscribe((m:any)=>{
-      console.log(m);
       this.refreshDataUsuario();
     })
   }
@@ -42,13 +41,16 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
   onDelete(userId: number): void {
     if(window.confirm('¿Está seguro de que desea eliminar este usuario?')){
       this.userSvc.delete(userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.userSvc.filter('Register click');
-        console.log('Eliminar', res);
         window.alert(res.message);
       });
       this.refreshDataUsuario();
@@ -56,7 +58,6 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onCreateModal(user = {}): void{
-    console.log('User->', user);
     this.dialog.open(ModalCrearUsuarioComponent, {
       height: '400px',
       width: '600px',
@@ -66,7 +67,6 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onEditModal(user = {}): void {
-    console.log('User->', user);
     this.dialog.open(ModalEditarUsuarioComponent, {
       height: '400px',
       width: '600px',

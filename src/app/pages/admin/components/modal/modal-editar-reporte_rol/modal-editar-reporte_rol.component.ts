@@ -43,11 +43,9 @@ enum Action {
       const formValue = this.reporteRolForm.baseFormEditarReporteRol.value;
 
       const reporteRolId = this.data?.reportesRol?.reporte_rol_id;
-      console.log(formValue);
 
       if(this.actionTODO === Action.EDIT){
         this.reporteRolSvc.update(reporteRolId, formValue).subscribe( res => {
-          console.log('Actualizar', res);
           this.reporteRolSvc.filter('Register click'); 
         })
       } 

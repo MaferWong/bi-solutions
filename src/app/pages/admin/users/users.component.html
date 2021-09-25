@@ -8,6 +8,10 @@
 
 <mat-divider></mat-divider>
 
+<mat-form-field class="btn-buscar">
+  <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filtrar Usuarios">
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <ng-container matColumnDef="id">

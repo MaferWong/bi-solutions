@@ -23,7 +23,6 @@ export class ReportesComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   constructor(private reporteSvc: ReportesService, private dialog: MatDialog ) {
     this.reporteSvc.listen().subscribe((m:any)=>{
-      console.log(m);
       this.refreshDataReporte();
     })
    }
@@ -42,13 +41,16 @@ export class ReportesComponent implements AfterViewInit, OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   onDelete(reporteId: number): void {
     if(window.confirm('¿Está seguro de que desea eliminar este reporte?')){
       this.reporteSvc.delete(reporteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.reporteSvc.filter('Register click');
-        console.log('Eliminar', res);
         window.alert(res.message);
       });
       this.refreshDataReporte();
@@ -56,7 +58,6 @@ export class ReportesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onCreateModal(reporte = {}): void {
-    console.log('Reporte->', reporte);
     this.dialog.open(ModalCrearReporteComponent, {
       height: '400px',
       width: '600px',
@@ -66,7 +67,6 @@ export class ReportesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   onEditModal(reporte = {}): void {
-    console.log('Reporte->', reporte);
     this.dialog.open(ModalEditarReporteComponent, {
       height: '400px',
       width: '600px',

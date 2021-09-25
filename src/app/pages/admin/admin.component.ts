@@ -41,22 +41,17 @@ export class AdminComponent implements OnInit {
     }
 
     returnData(): void {
-   // this.allReporteRol = [];
     this.reporteRolSvc.getAll().subscribe((allReporteRol) => {
       this.allReporteRol = allReporteRol;
-      console.log("todo",this.allReporteRol);
       this.ngOnChanges();
     });
     }
 
     ngOnChanges() {   
-      //this.returnData();
       this.reportesByRolId = this.allReporteRol.filter( reporteRol => reporteRol.rol_id === this.RolId);
-      console.log("byrol",this.reportesByRolId);
     }
 
     getValue() {
       this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedValue);
-      console.log(this.selectedValue);
     }
 }

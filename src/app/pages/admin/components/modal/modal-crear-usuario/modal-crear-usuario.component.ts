@@ -33,11 +33,9 @@ export class ModalCrearUsuarioComponent implements OnInit {
 
   onSaveNuevo(): void {
     const formValue = this.userForm.baseFormCrearUsuario.value;
-    console.log(this.userForm.baseFormCrearUsuario.value);
 
     if(this.actionTODO === Action.NEW){
       this.userSvc.new(formValue).subscribe( res => {
-        console.log('Nuevo', res);
         this.userSvc.filter('Register click');
       })
     } 

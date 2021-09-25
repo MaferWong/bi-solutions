@@ -39,11 +39,9 @@ export class ModalEditarUsuarioComponent implements OnInit {
     const formValue = this.userForm.baseFormEditarUsuario.value;
 
       const userId = this.data?.user?.usuario_id;
-      console.log(formValue);
 
         if(this.actionTODO === Action.EDIT){
             this.userSvc.update(userId, formValue).subscribe( res => {
-              console.log('Actualizar', res);
               this.userSvc.filter('Register click'); 
             })
         } 

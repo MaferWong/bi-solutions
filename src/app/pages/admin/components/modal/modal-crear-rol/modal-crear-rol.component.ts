@@ -28,11 +28,9 @@ enum Action {
   
     onSaveNuevo(): void {
       const formValue = this.rolForm.baseFormCrearRol.value;
-      console.log(this.rolForm.baseFormCrearRol.value);
 
       if(this.actionTODO === Action.NEW){
         this.rolSvc.new(formValue).subscribe( res => {
-          console.log('Nuevo', res);
           this.rolSvc.filter('Register click');
         })
       } 

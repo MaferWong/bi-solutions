@@ -29,11 +29,9 @@ enum Action {
   
     onSaveNuevo(): void {
       const formValue = this.reporteForm.baseFormCrearReporte.value;
-      console.log(this.reporteForm.baseFormCrearReporte.value);
 
       if(this.actionTODO === Action.NEW){
         this.reporteSvc.new(formValue).subscribe( res => {
-          console.log('Nuevo', res);
           this.reporteSvc.filter('Register click');
         })
       } 
