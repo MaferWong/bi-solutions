@@ -31,7 +31,7 @@
             <mat-label>Estado</mat-label>
             <mat-select formControlName="reporte_activo" required>
               <mat-option value="Activo">Activo</mat-option>
-              <mat-option value="No Activo">No Activo</mat-option>
+              <mat-option value="En Modificacion">En Modificación</mat-option>
             </mat-select>
             <mat-error *ngIf="checkField('reporte_activo')">
                 {{ reporteForm.errorMessage }}

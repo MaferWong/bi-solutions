@@ -1,5 +1,5 @@
 table {
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -20,3 +20,35 @@ th.mat-sort-header-sorted {
 .btn-buscar {
     margin: 12px;
 }
+
+.mat-column-url {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.mat-column-acciones{
+    flex: 0 0 30% !important;
+    width: 30% !important;
+}
+
+.mat-column-descripcion{
+    flex: 0 0 15% !important;
+    width: 15% !important;
+}
+
+.mat-column-estado{
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
